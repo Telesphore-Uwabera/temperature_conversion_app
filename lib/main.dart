@@ -68,7 +68,7 @@ class _TemperatureConverterHomePageState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Temperature Converter App',
+          'Temperature Converter',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.green,
