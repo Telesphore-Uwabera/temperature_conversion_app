@@ -60,7 +60,7 @@ class _TemperatureConverterHomePageState
     setState(() {
       _result = convertedValue.toStringAsFixed(2);
       _history.insert(
-          0, '$conversionType: ${value.toStringAsFixed(1)} => $_result');
+          0, '$conversionType: ${value.toStringAsFixed(1)} = $_result');
     });
   }
 
