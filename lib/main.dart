@@ -19,10 +19,12 @@ class TemperatureConverterApp extends StatelessWidget {
 
 class TemperatureConverterHomePage extends StatefulWidget {
   @override
-  _TemperatureConverterHomePageState createState() => _TemperatureConverterHomePageState();
+  _TemperatureConverterHomePageState createState() =>
+      _TemperatureConverterHomePageState();
 }
 
-class _TemperatureConverterHomePageState extends State<TemperatureConverterHomePage> {
+class _TemperatureConverterHomePageState
+    extends State<TemperatureConverterHomePage> {
   final TextEditingController _controller = TextEditingController();
   String _result = '';
   List<String> _history = [];
@@ -57,7 +59,7 @@ class _TemperatureConverterHomePageState extends State<TemperatureConverterHomeP
 
     setState(() {
       _result = convertedValue.toStringAsFixed(2);
-      _history.insert(0, '$conversionType: ${value.toStringAsFixed(1)} => ${_result}');
+      _history.insert(0, '$conversionType: ${value.toStringAsFixed(1)} => $_result');
     });
   }
 
@@ -67,77 +69,105 @@ class _TemperatureConverterHomePageState extends State<TemperatureConverterHomeP
       appBar: AppBar(
         title: Text(
           'Converter',
-          style: TextStyle(color: Colors.blue),
+          style: TextStyle(color: Colors.white),
         ),
+        backgroundColor: Colors.blue,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Wrap(
-              spacing: 20.0,
-              alignment: WrapAlignment.center,
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
               children: [
                 Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Radio<bool>(
-                      value: true,
-                      groupValue: _isFtoC,
-                      onChanged: (value) {
-                        setState(() {
-                          _isFtoC = value!;
-                        });
-                      },
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio<bool>(
+                          value: true,
+                          groupValue: _isFtoC,
+                          onChanged: (value) {
+                            setState(() {
+                              _isFtoC = value!;
+                            });
+                          },
+                        ),
+                        Text('Fahrenheit to Celsius'),
+                      ],
                     ),
-                    Text('Fahrenheit to Celsius'),
+                    SizedBox(width: 20),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio<bool>(
+                          value: false,
+                          groupValue: _isFtoC,
+                          onChanged: (value) {
+                            setState(() {
+                              _isFtoC = value!;
+                            });
+                          },
+                        ),
+                        Text('Celsius to Fahrenheit'),
+                      ],
+                    ),
                   ],
                 ),
+                SizedBox(height: 20),
                 Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Radio<bool>(
-                      value: false,
-                      groupValue: _isFtoC,
-                      onChanged: (value) {
-                        setState(() {
-                          _isFtoC = value!;
-                        });
-                      },
+                    Expanded(
+                      child: TextField(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          labelText: 'Enter temperature',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
                     ),
-                    Text('Celsius to Fahrenheit'),
+                    SizedBox(width: 20),
+                    Text(
+                      '=',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    SizedBox(width: 20),
+                    Container(
+                      width: 100,
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        _result,
+                        style: TextStyle(fontSize: 18),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _convert,
+                  child: Text('CONVERT'),
+                ),
+                SizedBox(height: 20),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: _history.map((conversion) => Text(conversion)).toList(),
+                    ),
+                  ),
                 ),
               ],
             ),
-            TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: 'Enter temperature',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _convert,
-              child: Text('CONVERT'),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Result: $_result',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _history.map((conversion) => Text(conversion)).toList(),
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
