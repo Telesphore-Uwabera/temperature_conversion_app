@@ -8,10 +8,6 @@ This is a Flutter application that converts temperatures between Fahrenheit and 
 - **Conversion History**: Maintain a history of conversions performed during the session.
 - **Responsive UI**: The app's interface adjusts for different screen sizes.
 
-## Screenshots
-
-![Screenshot](screenshot.png)
-
 ## Installation
 
 To run this app locally, ensure you have Flutter installed on your machine. Follow these steps:
