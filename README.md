@@ -103,3 +103,5 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ---
 
 Enjoy using the Temperature Converter App! If you encounter any issues or have suggestions for improvements, please open an issue on the GitHub repository.
+
+To view the Weather App, please visit [Weather App](https://telesphore-uwabera.github.io/weather-app/).
